@@ -11,16 +11,26 @@ const stylings = ["bold", "italic", "underline"];
 const colors = ["yellow", "blue", "red", "black", "purple"];
 
 function App() {
-  const [textStyle, setStyle] = useState([]);
+  let [textStyle, setStyle] = useState({});
   const [textColor, setColor] = useState("black");
 
   const changeStyle = (style) => {
-    // const found = textStyle.find((elemnt) => elemnt.incldes(style));
-    // if (typeof found === "undefined") {
-    //   setStyle(textStyle.push(styles[style]));
-    // } else {
-    //   setStyle(styles[style]);
-    // }
+    const textStyleArray = Object.values(textStyle);
+    const found = textStyleArray.find((elemnt) => {
+      console.log("elemnt: ", elemnt);
+      return elemnt.includes(style);
+    });
+    if (found === undefined) {
+      setStyle((textStyle) => (textStyle = { ...textStyle, ...styles[style] }));
+    } else {
+      const obj = styles[style];
+      for (const key in obj) {
+        if (style === obj[key]) {
+          delete textStyle[key];
+        }
+      }
+      setStyle((textStyle) => (textStyle = { ...textStyle }));
+    }
   };
 
   const stylingBoxes = stylings.map((style) => (
