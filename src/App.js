@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
@@ -9,23 +8,20 @@ const styles = {
 };
 
 const stylings = ["bold", "italic", "underline"];
-
 const colors = ["yellow", "blue", "red", "black", "purple"];
 
-let userText = "";
-
 function App() {
-  const [text, setStyle] = useState();
+  const [textStyle, setStyle] = useState([]);
+  const [textColor, setColor] = useState("black");
 
   const changeStyle = (style) => {
-    setStyle(userText.bold());
-    console.log(userText);
-    // if (fon) {
-    //   ReactDOM.render(element, document.getElementById("root"));
-    //   setStyle("dark");
-    // } else {
-    //   setStyle("light");
-    // }
+    const found = textStyle.find((elemnt) => elemnt.incldes(style));
+
+    if (typeof found === "undefined") {
+      setStyle(textStyle.push(styles[style]));
+    } else {
+      // setStyle(styles[style]);
+    }
   };
 
   const stylingBoxes = stylings.map((style) => (
@@ -33,7 +29,7 @@ function App() {
       className="btn btn-light"
       style={styles[style]}
       key={style}
-      onClick={changeStyle(styles[style])}
+      onClick={() => changeStyle(style)}
     >
       {style}
     </button>
@@ -43,13 +39,14 @@ function App() {
     <button
       style={{ backgroundColor: color, height: 30, width: 30 }}
       key={color}
+      onClick={() => setColor(color)}
     />
   ));
 
   return (
     <div className="App">
       <div className="my-3">{stylingBoxes}</div>
-      <textarea />
+      <textarea style={{ color: textColor, ...textStyle }} />
       <div className="my-3">{colorBoxes}</div>
     </div>
   );
