@@ -15,13 +15,12 @@ function App() {
   const [textColor, setColor] = useState("black");
 
   const changeStyle = (style) => {
-    const found = textStyle.find((elemnt) => elemnt.incldes(style));
-
-    if (typeof found === "undefined") {
-      setStyle(textStyle.push(styles[style]));
-    } else {
-      // setStyle(styles[style]);
-    }
+    // const found = textStyle.find((elemnt) => elemnt.incldes(style));
+    // if (typeof found === "undefined") {
+    //   setStyle(textStyle.push(styles[style]));
+    // } else {
+    //   setStyle(styles[style]);
+    // }
   };
 
   const stylingBoxes = stylings.map((style) => (
